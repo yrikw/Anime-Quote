@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Quote</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <button id="btn" class="btn">GET QUOTE</button>
+
+  <section id="card">
+  </section>
+
+  <script>
+    function getAnimeData() {
+      const url = `https://animechan.vercel.app/api/random`;
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          quote(data)
+        });
+    }
+
+
+    function quote(data) {
+      let name = data.anime
+      let char = data.character
+      let quote = data.quote
+
+      document.getElementById("card").innerHTML = `
+      <div class="quotes">
+        <h3>Anime Title</h3>
+        <p>${name}</p>
+        <h3>Who said?</h3>
+        <p>${char}</p>
+        <p class="quote">"${quote}"</p>
+      </div>
+      `
+      console.log(data)
+    }
+
+    document.getElementById("btn").addEventListener("click", getAnimeData)
+
+  </script>
+
+</body>
+
+</html>
